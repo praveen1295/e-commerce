@@ -63,7 +63,7 @@
   "env": {
     "PORT": "8080",
     "JWT_SECRET_KEY": "BANKHEDEPRAVEEN",
-    "MONGODB_URL": "mongodb+srv://admin:Password@cluster0.kr270wd.mongodb.net/ecommerce",
+    "MONGO_URI": "mongodb+srv://admin:Password@cluster0.kr270wd.mongodb.net/ecommerce",
     "STRIPE_SERVER_KEY": "sk_test_51PKXAESISP6fGftphX38SenfC9k8CaReV9Y5ldTnyldtwKv45dysx78txsJb7eamE6ARG4hvwaEMZErwJjkiLvml00RNpNJ3Rx",
     "SESSION_KEY": "8%asjH9uSf90W$#@Jh&^%d",
     "MAIL_ID": "lempi.roberts32@ethereal.email",

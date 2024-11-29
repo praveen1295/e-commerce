@@ -1,6 +1,6 @@
 require("dotenv").config();
 const express = require("express");
-const server = express();
+// const app = express();
 const mongoose = require("mongoose");
 const cors = require("cors");
 const session = require("express-session");
@@ -27,10 +27,12 @@ const paymentRouter = require("./routes/PaymentRoute");
 const reviewRouter = require("./routes/ReviewRoute");
 const blogRouter = require("./routes/BlogsRoute");
 const bankRouter = require("./routes/bankDetails");
-
+const messageRoute = require("./routes/messageRoute");
 const { upload } = require("./middlewares/fileUpload");
 const { rootDir } = require("./middlewares/fileUpload");
 const bannersRouter = require("./routes/banners");
+
+const { server, app } = require("./socket/socket.js");
 
 const cpUpload = upload.fields([
   { name: "productPhotos", maxCount: 10 },
@@ -80,23 +82,24 @@ opts.secretOrKey = process.env.JWT_SECRET_KEY;
 
 //middlewares
 
-// server.use(express.static(path.resolve(__dirname, "build")));
-server.use(express.static(path.resolve(__dirname, "../frontend/build")));
+// app.use(express.static(path.resolve(__dirname, "build")));
+app.use(express.static(path.resolve(__dirname, "../frontend/build")));
 
-server.use(cookieParser());
+app.use(cookieParser());
 
 const allowedOrigins = [
   "https://ecommerce-frontend.onrender.com",
   "https://biotronixfrontend.netlify.app",
   "http://localhost:3001",
+  "http://localhost:3000",
   "http://localhost:8080",
-  "http://localhost:8080/api",
+  "http://localhost:8080",
   "http://www.ecommerce.com",
-  "http://3.111.3.98",
-  "http://3.111.3.98/api",
+  "http://3.111.3.98:8080",
+  "http://3.111.3.98:8080",
 ];
 
-server.use(
+app.use(
   cors({
     origin: (origin, callback) => {
       if (allowedOrigins.includes(origin) || !origin) {
@@ -112,13 +115,13 @@ server.use(
   })
 );
 
-server.use(
+app.use(
   session({
     secret: process.env.SESSION_KEY,
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
-      mongoUrl: process.env.MONGODB_URL,
+      mongoUrl: process.env.MONGO_URI,
       collectionName: "sessions",
     }),
     cookie: {
@@ -130,66 +133,59 @@ server.use(
   })
 );
 
-server.use(passport.authenticate("session"));
+app.use(passport.authenticate("session"));
 
-server.use(express.json()); // to parse req.body
+app.use(express.json()); // to parse req.body
 
 // Serve static files
-server.use(
-  "/api/v1/static/assets",
-  express.static(path.join(rootDir, "assets"))
-);
-server.use(
+app.use("/api/v1/static/assets", express.static(path.join(rootDir, "assets")));
+app.use(
   "/api/v1/static/images",
   express.static(path.join(rootDir, "PRODUCT_PHOTOS"))
 );
-server.use(
+app.use(
   "/api/v1/static/thumbnail",
   express.static(path.join(rootDir, "THUMBNAIL"))
 );
-server.use(
+app.use(
   "/api/v1/static/assetsFile",
   express.static(path.join(rootDir, "ASSESTSFILES"))
 );
 
-server.use(
+app.use(
   "/api/v1/static/blogsThumbnail",
   express.static(path.join(rootDir, "BLOGS_THUMBNAIL"))
 );
-server.use(
+app.use(
   "/api/v1/static/blogsPhotos",
   express.static(path.join(rootDir, "BLOGS_PHOTOS"))
 );
 
-server.use(
-  "/api/v1/static/banner",
-  express.static(path.join(rootDir, "BANNERS"))
-);
+app.use("/api/v1/static/banner", express.static(path.join(rootDir, "BANNERS")));
 
-server.use("/products", cpUpload, productsRouter.router);
+app.use("/products", cpUpload, productsRouter.router);
 // we can also use JWT token for client-only auth
-server.use("/categories", categoriesRouter.router);
-server.use("/colors", colorsRouter.router);
+app.use("/categories", categoriesRouter.router);
+app.use("/colors", colorsRouter.router);
 
-server.use("/brands", brandsRouter.router);
-server.use("/users", isAuth(), usersRouter.router);
+app.use("/brands", brandsRouter.router);
+app.use("/users", isAuth(), usersRouter.router);
 
-server.use("/newUserRequests", isAuth(), newUserRequestRouter.router);
-server.use("/auth", authRouter.router);
-server.use("/cart", isAuth(), cartRouter.router);
-server.use("/orders", isAuth(), ordersRouter.router);
-server.use("/coupons", couponRouter.router);
-server.use("/reviews", reviewRouter.router);
-server.use("/createPayment", paymentRouter.router);
-server.use("/blogs", cpUpload, blogRouter);
-server.use("/bank-details", bankRouter);
+app.use("/newUserRequests", isAuth(), newUserRequestRouter.router);
+app.use("/auth", authRouter.router);
+app.use("/cart", isAuth(), cartRouter.router);
+app.use("/orders", isAuth(), ordersRouter.router);
+app.use("/coupons", couponRouter.router);
+app.use("/reviews", reviewRouter.router);
+app.use("/createPayment", paymentRouter.router);
+app.use("/blogs", cpUpload, blogRouter);
+app.use("/bank-details", bankRouter);
+app.use("/message", messageRoute.router);
 
-server.use("/banners", cpUpload, bannersRouter);
+app.use("/banners", cpUpload, bannersRouter);
 
 // this line we add to make react router work in case of other routes doesnt match
-server.get("*", (req, res) =>
-  res.sendFile(path.resolve("build", "index.html"))
-);
+app.get("*", (req, res) => res.sendFile(path.resolve("build", "index.html")));
 
 // Passport Strategies
 passport.use(
@@ -265,7 +261,7 @@ passport.deserializeUser(function (user, cb) {
 // This is your test secret API key.
 // const stripe = require("stripe")(process.env.STRIPE_SERVER_KEY);
 
-// server.post("/create-payment-intent", async (req, res) => {
+// app.post("/create-payment-intent", async (req, res) => {
 //   const { totalAmount, orderId } = req.body;
 
 //   // Validate and sanitize inputs
@@ -296,7 +292,7 @@ passport.deserializeUser(function (user, cb) {
 // });
 
 // checkout api
-// server.post("/create-checkout-session", async (req, res) => {
+// app.post("/create-checkout-session", async (req, res) => {
 //   const { items: products } = req.body;
 
 //   const lineItems = products.map((product) => {
@@ -339,7 +335,7 @@ passport.deserializeUser(function (user, cb) {
 main().catch((err) => console.log(err));
 
 async function main() {
-  await mongoose.connect(process.env.MONGODB_URL, {
+  await mongoose.connect(process.env.MONGO_URI, {
     // useNewUrlParser: true,
     // useUnifiedTopology: true,
   });

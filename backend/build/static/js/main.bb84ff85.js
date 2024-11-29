@@ -79815,13 +79815,13 @@
         ZD = (e) => {
           let { children: n } = e;
           const r = x($a),
-            [o, a] = (0, t.useState)({ isAuthenticated: !1, role: null });
+            [o, a] = (0, t.useState)({ isAuth(): !1, role: null });
           return (
             (0, t.useEffect)(() => {
               null !== r &&
                 void 0 !== r &&
                 r.role &&
-                a({ isAuthenticated: !0, role: r.role });
+                a({ isAuth(): !0, role: r.role });
             }, [r]),
             (0, sl.jsx)(QD.Provider, { value: { ...o }, children: n })
           );

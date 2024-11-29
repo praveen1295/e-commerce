@@ -15,7 +15,9 @@ import newUserRequestReducer from "../features/admin/components/newUserRequestsS
 import categoriesReducer from "../features/categories/categorySlice";
 import colorsReducer from "../features/color/colorSlice";
 
-// import { bankDetailsSlice } from '../Bankdetails/bankDetailsSlice';
+import socket from "../features/socket/socketSlice";
+import messages from "../features/chat/messageSlice";
+// import Messages from '../features/chat/Messages';
 
 export const store = configureStore({
   reducer: {
@@ -31,5 +33,7 @@ export const store = configureStore({
     bankDetails: bankDetailsReducer,
     categories: categoriesReducer,
     colors: colorsReducer,
+    socket: socket,
+    message: messages,
   },
 });

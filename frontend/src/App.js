@@ -60,6 +60,13 @@ import AdminUserDetailsPage from "./pages/AdminUserDetailsPage";
 import AdminBankDetailsPage from "./pages/AdminBankDetails";
 import AdminBankDetailForm from "./features/admin/components/bankDetails/AdminBankDetailsForm";
 
+import HomePage from "./features/chat/HomePage";
+import io from "socket.io-client";
+import { setSocket } from "./features/socket/socketSlice";
+import { setOnlineUsers } from "./features/chat/userSlice";
+
+const BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 const options = {
   timeout: 5000,
   position: positions.BOTTOM_LEFT,
@@ -140,6 +147,12 @@ const router = createBrowserRouter([
     path: "/",
     // element: <PackingSlip />,
     element: <LandingPage />,
+  },
+
+  {
+    path: "/chat",
+    // element: <PackingSlip />,
+    element: <HomePage />,
   },
 
   {
@@ -411,6 +424,29 @@ function App() {
   useEffect(() => {
     dispatch(checkAuthAsync());
   }, [dispatch]);
+
+  const { socket } = useSelector((store) => store.socket);
+
+  useEffect(() => {
+    if (user) {
+      const socketio = io(`${BASE_URL}`, {
+        query: {
+          userId: user.id,
+        },
+      });
+      dispatch(setSocket(socketio));
+
+      socketio?.on("getOnlineUsers", (onlineUsers) => {
+        dispatch(setOnlineUsers(onlineUsers));
+      });
+      return () => socketio.close();
+    } else {
+      if (socket) {
+        socket.close();
+        dispatch(setSocket(null));
+      }
+    }
+  }, [user]);
 
   useEffect(() => {
     if (user) {
