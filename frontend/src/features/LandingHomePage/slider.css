@@ -1,0 +1,106 @@
+/* Container for the slider */
+.slider-container {
+  position: relative;
+  max-width: 100%;
+  margin: auto;
+  overflow: hidden;
+}
+
+/* Slide images */
+.slide-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Slide content */
+.slides {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+.slides.active {
+  opacity: 1;
+  position: relative;
+}
+
+/* Arrows */
+.arrows {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+}
+
+.arrows span {
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+  font-size: 24px;
+  user-select: none;
+  padding: 16px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  transition: background-color 0.6s ease;
+}
+
+.arrows span:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Dots */
+.all-dots {
+  text-align: center;
+  padding: 20px;
+  position: absolute;
+  width: 100%;
+  bottom: 10px;
+  z-index: 10;
+}
+
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 5px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active-dot,
+.dot:hover {
+  background-color: #717171;
+}
+
+/* Media Queries for Responsiveness */
+@media only screen and (max-width: 768px) {
+  .arrows span {
+    font-size: 16px;
+    padding: 12px;
+  }
+
+  .dot {
+    height: 12px;
+    width: 12px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .arrows span {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .dot {
+    height: 10px;
+    width: 10px;
+  }
+}

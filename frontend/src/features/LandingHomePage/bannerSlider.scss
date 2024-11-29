@@ -1,0 +1,62 @@
+.banner-slider {
+  .slick-slider {
+    display: flex;
+    justify-content: center;
+    position: relative; // Ensure the slider container is positioned relatively
+  }
+
+  .slick-slide {
+    padding: 0;
+    margin: 0;
+  }
+
+  .slick-list {
+    margin: 8px -10px;
+    width: 100%;
+  }
+
+  .slide {
+    position: relative;
+    // height: 100vh;
+    overflow: hidden;
+    // border-radius: 8px;
+  }
+
+  .slide-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background: black;
+  }
+
+  // Style for the navigation arrows (buttons)
+  .slick-prev,
+  .slick-next {
+    width: 50px; // Adjust the width as needed
+    height: 50px; // Adjust the height as needed
+    z-index: 100; // Make sure buttons are above other content
+    border-radius: 50%; // Make buttons circular
+    // top: 50%; // Center vertically
+    transform: translateY(-50%); // Center vertically
+    background-color: rgba(0, 0, 0, 0.5); // Background color with transparency
+    // display: flex;
+    // align-items: center;
+    // justify-content: center;
+    color: white; // Button icon color
+    cursor: pointer; // Change cursor to pointer on hover
+  }
+
+  .slick-prev {
+    left: 10px; // Position from the left
+  }
+
+  .slick-next {
+    right: 10px; // Position from the right
+  }
+
+  // Adjust hover state if needed
+  .slick-prev:hover,
+  .slick-next:hover {
+    background-color: rgba(0, 0, 0, 0.7); // Darker background on hover
+  }
+}

@@ -1,0 +1,22 @@
+.ant-steps-item-description{
+    width: 2670px;
+    text-align: start;
+    margin-left: 36px;
+  }
+  .ant-steps-item-title{
+    width: 2670px;
+    text-align: start;
+    margin-left: 36px;
+    line-height: 10px;
+  }
+
+  .steps-description {
+    max-width: none; // Remove any max-width constraints
+ 
+  }
+  
+  .steps-description small {
+    display: block;
+    margin-bottom: 4px; // Add some margin for spacing between lines
+  }
+  
