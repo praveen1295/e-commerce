@@ -2,29 +2,40 @@ import React, { useEffect } from "react";
 import SendInput from "./SendInput";
 import Messages from "./Messages";
 import { useSelector, useDispatch } from "react-redux";
-// import { setSelectedUser } from "../redux/userSlice";
+import { selectLoggedInUser } from "../auth/authSlice";
+import { RxAvatar } from "react-icons/rx";
+// import { setSelectedCustomerCare } from "../redux/userSlice";
 
 const MessageContainer = () => {
-  const { selectedUser, authUser, onlineUsers } = useSelector(
-    (store) => store.user
+  const authUser = useSelector(selectLoggedInUser);
+
+  const { selectedCustomerCare, onlineUsers } = useSelector(
+    (store) => store.customerCare
   );
   const dispatch = useDispatch();
 
-  const isOnline = onlineUsers?.includes(selectedUser?._id);
-
+  const isOnline = onlineUsers?.includes(selectedCustomerCare?._id);
+  console.log("selectedUserselectedUser", selectedCustomerCare);
   return (
     <>
-      {selectedUser !== null ? (
+      {selectedCustomerCare ? (
         <div className="md:min-w-[550px] flex flex-col">
           <div className="flex gap-2 items-center bg-zinc-800 text-white px-4 py-2 mb-2">
             <div className={`avatar ${isOnline ? "online" : ""}`}>
               <div className="w-12 rounded-full">
-                <img src={selectedUser?.profilePhoto} alt="user-profile" />
+                {selectedCustomerCare?.profilePhoto ? (
+                  <img
+                    src={selectedCustomerCare?.profilePhoto}
+                    alt="user-profile"
+                  />
+                ) : (
+                  <RxAvatar className="h-10 w-10 mr-2 cursor-pointer rounded-full hover:text-gray-400" />
+                )}
               </div>
             </div>
             <div className="flex flex-col flex-1">
               <div className="flex justify-between gap-2">
-                <p>{selectedUser?.fullName}</p>
+                <p>{selectedCustomerCare?.name}</p>
               </div>
             </div>
           </div>

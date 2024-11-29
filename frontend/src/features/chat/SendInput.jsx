@@ -3,19 +3,23 @@ import { IoSend } from "react-icons/io5";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setMessages } from "./messageSlice";
+import { selectLoggedInUser } from "../auth/authSlice";
 const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 const SendInput = () => {
-  const [message, setMessage] = useState("");
   const dispatch = useDispatch();
-  const { selectedUser } = useSelector((store) => store.user);
+  // const user = useSelector(selectLoggedInUser);
+
+  const [message, setMessage] = useState("");
+  const { selectedCustomerCare } = useSelector((store) => store.customerCare);
+  console.log("selectedCustomerCare", selectedCustomerCare);
   const { messages } = useSelector((store) => store.message);
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        `${BASE_URL}/api/v1/message/send/${selectedUser?._id}`,
+        `${BASE_URL}/message/send/${selectedCustomerCare?.id}`,
         { message },
         {
           headers: {
@@ -24,6 +28,8 @@ const SendInput = () => {
           withCredentials: true,
         }
       );
+
+      console.log("res?.data?.newMessage", res?.data?.newMessage);
       dispatch(setMessages([...messages, res?.data?.newMessage]));
     } catch (error) {
       console.log(error);

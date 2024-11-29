@@ -1,4 +1,4 @@
-import { configureStore, createReducer } from "@reduxjs/toolkit";
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import productReducer from "../features/product/productSlice";
 import reviewReducer from "../features/product/components/reviewsSlice";
 
@@ -15,25 +15,54 @@ import newUserRequestReducer from "../features/admin/components/newUserRequestsS
 import categoriesReducer from "../features/categories/categorySlice";
 import colorsReducer from "../features/color/colorSlice";
 
-import socket from "../features/socket/socketSlice";
-import messages from "../features/chat/messageSlice";
-// import Messages from '../features/chat/Messages';
+import socketReducer from "../features/socket/socketSlice";
+import messagesReducer from "../features/chat/messageSlice";
+import customerCareReducer from "../features/customerCare/customerCareSlice";
+
+import {
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from "redux-persist";
+import storage from "redux-persist/lib/storage";
+import CustomerCare from "../features/customerCare/CustomerCare";
+
+const persistConfig = {
+  key: "root",
+  version: 1,
+  storage,
+};
+
+const rootReducer = combineReducers({
+  product: productReducer,
+  auth: authReducer,
+  cart: cartReducer,
+  order: orderReducer,
+  user: userReducer,
+  newUserRequests: newUserRequestReducer,
+  reviews: reviewReducer,
+  blogs: blogsReducer,
+  banners: bannerReducer,
+  bankDetails: bankDetailsReducer,
+  categories: categoriesReducer,
+  colors: colorsReducer,
+  socket: socketReducer,
+  message: messagesReducer,
+  customerCare: customerCareReducer,
+});
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
-  reducer: {
-    product: productReducer,
-    auth: authReducer,
-    cart: cartReducer,
-    order: orderReducer,
-    user: userReducer,
-    newUserRequests: newUserRequestReducer,
-    reviews: reviewReducer,
-    blogs: blogsReducer,
-    banners: bannerReducer,
-    bankDetails: bankDetailsReducer,
-    categories: categoriesReducer,
-    colors: colorsReducer,
-    socket: socket,
-    message: messages,
-  },
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
 });

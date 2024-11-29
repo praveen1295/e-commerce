@@ -23,7 +23,7 @@ const userSchema = new Schema(
     role: {
       type: String,
       required: true,
-      enum: ["user", "admin", "owner", "supervisor"],
+      enum: ["user", "admin", "owner", "supervisor", "customerCare"],
       default: "user",
     },
     addresses: { type: [Schema.Types.Mixed], required: true },

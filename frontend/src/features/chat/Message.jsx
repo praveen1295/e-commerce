@@ -1,9 +1,12 @@
 import React, { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
+import { selectLoggedInUser } from "../auth/authSlice";
 
 const Message = ({ message }) => {
+  const authUser = useSelector(selectLoggedInUser);
+
   const scroll = useRef();
-  const { authUser, selectedUser } = useSelector((store) => store.user);
+  const { selectedCustomerCare } = useSelector((store) => store.user);
 
   useEffect(() => {
     scroll.current?.scrollIntoView({ behavior: "smooth" });
@@ -23,7 +26,7 @@ const Message = ({ message }) => {
             src={
               message?.senderId === authUser?._id
                 ? authUser?.profilePhoto
-                : selectedUser?.profilePhoto
+                : selectedCustomerCare?.profilePhoto
             }
           />
         </div>

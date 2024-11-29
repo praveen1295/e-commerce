@@ -1,45 +1,65 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BiSearchAlt2 } from "react-icons/bi";
-import OtherUsers from "./OtherUsers";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { setAuthUser, setOtherUsers, setSelectedUser } from "./userSlice";
+import {
+  setCustomerCares,
+  setSelectedCustomerCare,
+} from "../customerCare/customerCareSlice";
 import { setMessages } from "./messageSlice";
+import CustomerCares from "../customerCare/CustomerCares";
+import { fetchAllUsersAsync, selectUsers } from "../user/userSlice";
+import { ITEMS_PER_PAGE } from "../../app/constants";
+import { selectLoggedInUser } from "../auth/authSlice";
 const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 const Sidebar = () => {
+  const user = useSelector(selectLoggedInUser);
+
   const [search, setSearch] = useState("");
-  const { otherUsers } = useSelector((store) => store.user);
+  // const { customerCares } = useSelector((store) => store.user);
+  const customerCares = useSelector(selectUsers);
+
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
   const logoutHandler = async () => {
     try {
-      const res = await axios.get(`${BASE_URL}/api/v1/user/logout`);
+      const res = await axios.get(`${BASE_URL}/user/logout`);
       navigate("/login");
       toast.success(res.data.message);
-      dispatch(setAuthUser(null));
       dispatch(setMessages(null));
-      dispatch(setOtherUsers(null));
-      dispatch(setSelectedUser(null));
+      dispatch(setCustomerCares(null));
+      dispatch(setSelectedCustomerCare(null));
     } catch (error) {
       console.log(error);
     }
   };
   const searchSubmitHandler = (e) => {
     e.preventDefault();
-    const conversationUser = otherUsers?.find((user) =>
+    const conversationUser = customerCares?.find((user) =>
       user.fullName.toLowerCase().includes(search.toLowerCase())
     );
     if (conversationUser) {
-      dispatch(setOtherUsers([conversationUser]));
+      dispatch(setCustomerCares([conversationUser]));
     } else {
       toast.error("User not found!");
     }
   };
+
+  useEffect(() => {
+    const pagination = { _page: 1, _limit: ITEMS_PER_PAGE };
+
+    dispatch(
+      fetchAllUsersAsync({
+        role: user.role === "customerCare" ? "user" : "customerCare",
+        pagination,
+      })
+    );
+  }, []);
   return (
     <div className="border-r border-slate-500 p-4 flex flex-col">
       <form
@@ -59,7 +79,7 @@ const Sidebar = () => {
         </button>
       </form>
       <div className="divider px-3"></div>
-      <OtherUsers />
+      <CustomerCares />
       <div className="mt-2">
         <button onClick={logoutHandler} className="btn btn-sm">
           Logout

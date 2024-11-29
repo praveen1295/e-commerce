@@ -3,12 +3,14 @@ import Sidebar from "./Sidebar";
 import MessageContainer from "./MessageContainer";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { selectLoggedInUser } from "../auth/authSlice";
 
 const HomePage = () => {
-  const { authUser } = useSelector((store) => store.user);
+  const user = useSelector(selectLoggedInUser);
+
   const navigate = useNavigate();
   // useEffect(() => {
-  //   if (!authUser) {
+  //   if (!user) {
   //     navigate("/login");
   //   }
   // }, []);

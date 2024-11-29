@@ -63,9 +63,11 @@ import AdminBankDetailForm from "./features/admin/components/bankDetails/AdminBa
 import HomePage from "./features/chat/HomePage";
 import io from "socket.io-client";
 import { setSocket } from "./features/socket/socketSlice";
-import { setOnlineUsers } from "./features/chat/userSlice";
+import { setOnlineUsers } from "./features/customerCare/customerCareSlice";
 
 const BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
+console.log("baseUrl=====>", BASE_URL);
 
 const options = {
   timeout: 5000,
