@@ -8,13 +8,13 @@ const Messages = () => {
   useGetMessages();
   useGetRealTimeMessage();
   const { messages } = useSelector((store) => store.message);
-  console.log("messages", messages);
+
   return (
-    <div className="px-4 flex-1 overflow-auto">
+    <div className="p-4 space-y-4">
       {messages &&
-        messages?.map((message) => {
-          return <Message key={message._id} message={message} />;
-        })}
+        messages.map((message) => (
+          <Message key={message._id} message={message} />
+        ))}
     </div>
   );
 };

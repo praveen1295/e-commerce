@@ -1,12 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
 import MessageContainer from "./MessageContainer";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { selectLoggedInUser } from "../auth/authSlice";
+import { MdChat } from "react-icons/md";
 
 const HomePage = () => {
   const user = useSelector(selectLoggedInUser);
+
+  const [startChat, setStartChat] = useState(false);
 
   const navigate = useNavigate();
   // useEffect(() => {
@@ -15,9 +18,33 @@ const HomePage = () => {
   //   }
   // }, []);
   return (
-    <div className="flex sm:h-[450px] md:h-[550px] rounded-lg overflow-hidden bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0">
-      <Sidebar />
-      <MessageContainer />
+    <div className="fixed bottom-5 right-5" style={{ zIndex: 10000 }}>
+      {startChat ? (
+        <div className="flex sm:h-[450px] md:h-[550px] rounded-lg overflow-hidden bg-gradient-to-br from-blue-500 via-blue-600 to-blue-800 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-80 relative">
+          <button
+            className="absolute top-2 right-2 text-white font-bold hover:text-red-500"
+            onClick={() => {
+              setStartChat(false);
+            }}
+          >
+            X
+          </button>
+          {user?.role === "customerCare" && <Sidebar />}
+          <MessageContainer />
+        </div>
+      ) : (
+        <button
+          onClick={() => {
+            if (!user) {
+              navigate("/login");
+              return;
+            }
+            setStartChat(true);
+          }}
+        >
+          <MdChat className="text-6xl" />
+        </button>
+      )}
     </div>
   );
 };

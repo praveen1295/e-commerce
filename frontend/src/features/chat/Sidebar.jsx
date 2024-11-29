@@ -26,22 +26,22 @@ const Sidebar = () => {
 
   const navigate = useNavigate();
 
-  const logoutHandler = async () => {
-    try {
-      const res = await axios.get(`${BASE_URL}/user/logout`);
-      navigate("/login");
-      toast.success(res.data.message);
-      dispatch(setMessages(null));
-      dispatch(setCustomerCares(null));
-      dispatch(setSelectedCustomerCare(null));
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const logoutHandler = async () => {
+  //   try {
+  //     const res = await axios.get(`${BASE_URL}/user/logout`);
+  //     navigate("/login");
+  //     toast.success(res.data.message);
+  //     dispatch(setMessages(null));
+  //     dispatch(setCustomerCares(null));
+  //     dispatch(setSelectedCustomerCare(null));
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
   const searchSubmitHandler = (e) => {
     e.preventDefault();
     const conversationUser = customerCares?.find((user) =>
-      user.fullName.toLowerCase().includes(search.toLowerCase())
+      user.name.toLowerCase().includes(search.toLowerCase())
     );
     if (conversationUser) {
       dispatch(setCustomerCares([conversationUser]));
@@ -55,7 +55,7 @@ const Sidebar = () => {
 
     dispatch(
       fetchAllUsersAsync({
-        role: user.role === "customerCare" ? "user" : "customerCare",
+        role: user?.role === "customerCare" ? "user" : "customerCare",
         pagination,
       })
     );
@@ -80,11 +80,11 @@ const Sidebar = () => {
       </form>
       <div className="divider px-3"></div>
       <CustomerCares />
-      <div className="mt-2">
+      {/* <div className="mt-2">
         <button onClick={logoutHandler} className="btn btn-sm">
           Logout
         </button>
-      </div>
+      </div> */}
     </div>
   );
 };

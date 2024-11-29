@@ -34,8 +34,12 @@ import {
 import Loader from "../common/Loader";
 import ShowBlogs from "./ShowBlogs";
 import BestSellingCard from "./BestSellingCard";
+import HomePage from "../chat/HomePage";
+import { selectLoggedInUser } from "../auth/authSlice";
 
 const LandingHomePage = () => {
+  const user = useSelector(selectLoggedInUser);
+
   const mostViewedBlogs = useSelector(selectMostViewedBlogs);
 
   const dispatch = useDispatch();
@@ -70,7 +74,7 @@ const LandingHomePage = () => {
   }
 
   return (
-    <div className="font-sans">
+    <div className="font-sans relative">
       <Slider />
       <div className="container-2 px-2 md:px-4 lg:px-8">
         <div className="flex flex-col md:flex-row gap-4 mt-7">
@@ -198,6 +202,8 @@ const LandingHomePage = () => {
           </div>
         </div>
       </div>
+
+      {<HomePage />}
     </div>
   );
 };
