@@ -6,6 +6,7 @@ const {
   photoPath,
   thumbnailPath,
 } = require("../middlewares/fileUpload");
+const { getReceiverSocketId } = require("../socket/socket");
 
 exports.createProduct = async (req, res) => {
   try {
@@ -622,6 +623,11 @@ exports.updateProduct = async (req, res) => {
 
     if (!updatedProduct) {
       return res.status(404).json({ error: "Product not found" });
+    }
+
+    const receiverSocketId = getReceiverSocketId(receiverId);
+    if (receiverSocketId) {
+      io.to(receiverSocketId).emit("updatedProduct", updatedProduct);
     }
 
     res.status(200).json(updatedProduct);

@@ -74,7 +74,7 @@ const MessageContainer = () => {
           </div>
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center h-full bg-gray-900 rounded-lg shadow-lg">
+        <div className="flex flex-col items-center md:min-w-[550px] justify-center h-full bg-gray-900 rounded-lg shadow-lg">
           <h1 className="text-4xl font-bold text-white mb-2">
             Hi, {authUser?.name}
           </h1>

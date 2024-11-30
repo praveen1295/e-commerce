@@ -9,11 +9,11 @@ const UpperHeader = () => {
       <div className="upperHeaderLeftBox flex flex-wrap gap-2 md:gap-7 text-white text-xs sm:text-sm">
         <div className="flex items-center">
           <PhoneIcon className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 mr-1 sm:mr-2" />
-          <span>+91 9654866346</span>
+          <span>+91 9425919583</span>
         </div>
         <div className="flex items-center">
           <PhoneIcon className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 mr-1 sm:mr-2" />
-          <span>+91 9015251243</span>
+          <span>+91 9479779107</span>
         </div>
         <div className="flex items-center">
           <span>example@example.com</span>

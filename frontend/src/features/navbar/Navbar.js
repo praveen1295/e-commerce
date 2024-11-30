@@ -33,7 +33,7 @@ const commonNavigation = [
 ];
 
 const navigation = [
-  { name: "Home", link: "/home", user: true },
+  { name: "Home", link: "/home", user: true, customerCare: true },
   {
     name: "Shop",
     link: "/shop",
@@ -42,9 +42,9 @@ const navigation = [
     admin: true,
     supervisor: true,
   },
-  { name: "Blogs", link: "/blogs", user: true },
-  { name: "About Us", link: "/aboutus", user: true },
-  { name: "Contact Us", link: "/contactus", user: true },
+  { name: "Blogs", link: "/blogs", user: true, customerCare: true },
+  { name: "About Us", link: "/aboutus", user: true, customerCare: true },
+  { name: "Contact Us", link: "/contactus", user: true, customerCare: true },
   {
     name: "Products",
     link: "/admin",
