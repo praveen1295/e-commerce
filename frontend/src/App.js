@@ -168,7 +168,7 @@ const router = createBrowserRouter([
   {
     path: "/cart",
     element: (
-      <ProtectedRout roles={["admin", "owner", "user"]}>
+      <ProtectedRout roles={["admin", "owner", "user", "customerCare"]}>
         <CartPage></CartPage>
       </ProtectedRout>
     ),
@@ -176,7 +176,9 @@ const router = createBrowserRouter([
   {
     path: "/checkout",
     element: (
-      <ProtectedRout roles={["admin", "supervisor", "owner", "user"]}>
+      <ProtectedRout
+        roles={["admin", "supervisor", "owner", "user", "customerCare"]}
+      >
         <Checkout></Checkout>
       </ProtectedRout>
     ),
@@ -351,7 +353,7 @@ const router = createBrowserRouter([
   {
     path: "/my-orders",
     element: (
-      <ProtectedRout roles={["user", "admin", "owner"]}>
+      <ProtectedRout roles={["user", "customerCare", "admin", "owner"]}>
         <UserOrdersPage></UserOrdersPage>
       </ProtectedRout>
     ),
@@ -360,7 +362,9 @@ const router = createBrowserRouter([
   {
     path: "/my-orders/orderDetail",
     element: (
-      <ProtectedRout roles={["user", "admin", "supervisor", "owner"]}>
+      <ProtectedRout
+        roles={["user", "customerCare", "admin", "supervisor", "owner"]}
+      >
         <UserOrdersDetailPage></UserOrdersDetailPage>
       </ProtectedRout>
     ),
@@ -378,7 +382,9 @@ const router = createBrowserRouter([
   {
     path: "/profile",
     element: (
-      <ProtectedRout roles={["admin", "supervisor", "owner", "user"]}>
+      <ProtectedRout
+        roles={["admin", "supervisor", "owner", "user", "customerCare"]}
+      >
         <UserProfilePage></UserProfilePage>{" "}
       </ProtectedRout>
     ),

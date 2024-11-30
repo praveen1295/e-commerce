@@ -8,6 +8,7 @@ import {
 import { ITEMS_PER_PAGE } from "../../app/constants";
 import Loader from "../common/Loader";
 import { Link } from "react-router-dom";
+import HomePage from "../chat/HomePage";
 
 const Index = () => {
   const blogs = useSelector(selectBlogs);
@@ -67,61 +68,8 @@ const Index = () => {
             </div>
           );
         })}
-
-        {/* <div>
-          <div className="transition-all ease-in-out duration-300 hover:-translate-y-4">
-            <img
-              src="https://res.cloudinary.com/daiyj7fxl/image/upload/v1685001401/components/bg-home_oxiq4q_ynkmm5.webp"
-              className="mb-4"
-              alt="Blog img-2"
-            />
-            <h1 className="text-gray-400 text-sm">Education</h1>
-            <h1 className="mb-2">
-              <a href="#" className="text-xl hover:text-green-500">
-                Online Learning: Pros and Cons of the New Normal in Education
-              </a>
-            </h1>
-            <p className="text-gray-400 text-sm">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
-            </p>
-            <div className="mt-4">
-              <a href="#" className="text-green-500">
-                Read More
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <div className="transition-all ease-in-out duration-300 hover:-translate-y-4">
-            <img
-              src="https://res.cloudinary.com/daiyj7fxl/image/upload/v1685001401/components/airfocus-lTWC_5OjyYc-unsplash_1_cxaswx_e25jxz.webp"
-              className="mb-4"
-              alt="Blog img-3"
-            />
-            <h1 className="text-gray-400 text-sm">Business</h1>
-            <h1 className="mb-2">
-              <a href="#" className="text-xl hover:text-green-500">
-                Creating a Successful Startup: Tips from Industry Experts
-              </a>
-            </h1>
-            <p className="text-gray-400 text-sm">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
-            </p>
-            <div className="mt-4">
-              <a href="#" className="text-green-500">
-                Read More
-              </a>
-            </div>
-          </div>
-        </div> */}
       </div>
+      {<HomePage />}
     </section>
   );
 };

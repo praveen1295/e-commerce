@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import CommonButton from "../common/CommonButton";
+import HomePage from "../chat/HomePage";
 
 const AboutUs = () => {
   return (
@@ -33,41 +34,42 @@ const AboutUs = () => {
                 Who Are We?
               </h2>
               <p className="text-gray-700 leading-relaxed mb-4">
-                Ecommerce Care International LLP was launched in 2020 by Mr.
-                Pankaj Mutreja. Prior to this, in 2006, Mr. Pankaj founded
-                Solution Forever, a sibling company to Ecommerce Care
-                International LLP. Driven by an entrepreneurial spirit, Mr.
-                Pankaj was determined to leverage his skills to make a positive
-                impact on the world. His passion for engineering and designing
-                devices led to a pivotal moment when he dedicated himself to
-                helping a child stand and walk. Despite having no formal
-                education in this field, Mr. Pankaj spent countless days and
-                nights researching and developing equipment to assist the child.
-                The success of this initiative gave him a profound sense of
-                purpose, encapsulated in his reflection, "We helped him stand,
-                and that's when we realized how helpful we might be in the
-                market.”
+                At Global Health Innovators LLP, founded in 2015 by Praveen
+                Bankhede, we are dedicated to reshaping the future of healthcare
+                and rehabilitation. Praveen Bankhede envisioned a world where
+                innovative solutions make healthcare accessible and efficient
+                for everyone. His journey began with a personal mission to
+                assist a young child in regaining mobility. Despite lacking
+                formal training in medical device engineering, Praveen Bankhede
+                devoted himself to creating a customized solution. This triumph
+                became the foundation of his lifelong commitment to innovation
+                and compassion in healthcare.
               </p>
               <p className="text-gray-700 leading-relaxed">
-                Since 2006, the technology and competition have evolved, but
-                Solution Forever remains renowned for its quality and
-                reliability. This significant mission is now carried forward by
-                the second generation, who are committed to expanding their
-                reach to more customers. Our mission is to revolutionize
-                physiotherapy and rehabilitation by providing top-notch
-                equipment and solutions to improve patient care. As an umbrella
-                brand, Solution Forever focuses on manufacturing high-quality
-                products, while Ecommerce Care International excels in importing
-                and trading. We serve a diverse clientele, including patients,
-                physiotherapy centres, doctors, and potential multinational
-                corporations.
+                Over the years, Global Health Innovators LLP has grown from a
+                small initiative into a leading provider of cutting-edge
+                physiotherapy and rehabilitation solutions. Today, we stand as a
+                beacon of reliability and excellence, serving clients from
+                diverse backgrounds, including patients, physiotherapists,
+                medical professionals, and international corporations.
               </p>
               <p className="text-gray-700 leading-relaxed mt-4">
-                We pride ourselves on our commitment to accessibility, ensuring
-                that even those with financial constraints receive the care they
-                deserve. Our in-house manufacturing allows us to offer
-                customized solutions at competitive prices, making healthcare
-                more affordable and efficient.
+                Our mission is clear: to empower healthcare providers with the
+                tools they need to improve patient outcomes and redefine
+                standards of care. With a focus on research, development, and
+                manufacturing, we specialize in delivering tailor-made,
+                high-quality equipment at competitive prices. Our parallel arm,
+                HealthCare Emporium, excels in the import and distribution of
+                premium medical products, ensuring global accessibility for
+                local needs.
+              </p>
+              <p className="text-gray-700 leading-relaxed mt-4">
+                At Global Health Innovators LLP, our ethos revolves around
+                compassion, innovation, and accessibility. We believe that
+                financial constraints should never hinder anyone from receiving
+                the care they deserve. Our dedicated team continues to break
+                barriers and expand horizons, driving a future where healthcare
+                innovation knows no bounds.
               </p>
             </section>
 
@@ -130,6 +132,7 @@ const AboutUs = () => {
           </div>
         </div>
       </div>
+      {<HomePage />}
     </div>
   );
 };

@@ -20,69 +20,6 @@ export default function Cart() {
 
   const items = useSelector(selectItems);
 
-  // useEffect(() => {
-  //   setDiscountPrice(getGstIncludedPrice(userInfo?.user_category, items));
-  // }, [userInfo, items]);
-
-  // const items1 = [
-  //   {
-  //     quantity: 1,
-  //     product: {
-  //       colors: [],
-  //       sizes: [],
-  //       highlights: [],
-  //       id: "65ec300eff23452df10cf459",
-  //       title: "Product Seven",
-  //       description: "Description of Product Seven",
-  //       price: 120,
-  //       discountPercentage: 12.7,
-  //       discountPrice: 500,
-  //       rating: 4.7,
-  //       stock: 20,
-  //       brand: "BrandB",
-  //       category: "Health & Wellness",
-  //       thumbnail: "/assets/product3.jpeg",
-  //       images: [
-  //         "/assets/product7.jpeg",
-  //         "/assets/product7_2.jpeg",
-  //         "/assets/product7_3.jpeg",
-  //         "/assets/product7_4.jpeg",
-  //       ],
-  //       deleted: false,
-  //     },
-  //     user: "65e6c1159b8ca13e67fb8519",
-  //     id: "65ee9ca3f35f819409145f5f",
-  //   },
-  //   {
-  //     quantity: 1,
-  //     product: {
-  //       colors: [],
-  //       sizes: [],
-  //       highlights: [],
-  //       id: "65ec300eff23452df10cf456",
-  //       title: "Product Four",
-  //       description: "Description of Product Four",
-  //       price: 250,
-  //       discountPercentage: 12.7,
-  //       discountPrice: 500,
-  //       rating: 3.8,
-  //       stock: 5,
-  //       brand: "BrandY",
-  //       category: "Appliances",
-  //       thumbnail: "/assets/product4.jpeg",
-  //       images: [
-  //         "/assets/product4.jpeg",
-  //         "/assets/product4_2.jpeg",
-  //         "/assets/product4_3.jpeg",
-  //         "/assets/product4_4.jpeg",
-  //       ],
-  //       deleted: false,
-  //     },
-  //     user: "65e6c1159b8ca13e67fb8519",
-  //     id: "65ee9d22f35f819409145f88",
-  //   },
-  // ];
-
   const status = useSelector(selectCartStatus);
   const cartLoaded = useSelector(selectCartLoaded);
   const [openModal, setOpenModal] = useState(null);

@@ -251,19 +251,19 @@ const ContactOptions = () => {
                         className="display-phone text-night nowrap"
                         href="tel:91 965-486-6346"
                       >
-                        <span className="hidden-xs">+91 9654866346</span>
+                        <span className="hidden-xs">+91 9479779107</span>
                       </a>{" "}
                       |{" "}
                       <a
                         className="dialing-phone text-night nowrap"
-                        href="tel:1-800-387-3285"
+                        href="tel:1-947-977-9107"
                       >
-                        +91 9015251243
+                        +91 9425919583
                       </a>
                     </div>
                     <p>
-                      <span className="header-text">+91 8076549111 </span> |
-                      <span className="header-text">+91 8076549111</span>
+                      <span className="header-text">+91 9479779107 </span> |
+                      <span className="header-text">+91 9425919583</span>
                     </p>
                     <p>
                       <a href="" target="_blank">
@@ -279,12 +279,7 @@ const ContactOptions = () => {
 
               <ContactOption
                 title="Address"
-                content={
-                  <div>
-                    F-400, Sudershan Park, Moti Nagar, Near Gopal ji Dairy New
-                    Delhi -110015, Delhi 110015
-                  </div>
-                }
+                content={<div>68-Ashoka garden bhopal</div>}
                 linkText="Find your local office"
               />
 

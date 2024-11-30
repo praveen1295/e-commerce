@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { selectLoggedInUser } from "../auth/authSlice";
+import { RxAvatar } from "react-icons/rx";
 
 const Message = ({ message }) => {
   const authUser = useSelector(selectLoggedInUser);
@@ -20,14 +21,18 @@ const Message = ({ message }) => {
       {/* Avatar */}
       {!isSender && (
         <div className="w-10 h-10 rounded-full overflow-hidden mr-3">
-          <img
-            src={
-              message?.senderId === authUser?.id
-                ? authUser?.profilePhoto
-                : message?.profilePhoto
-            }
-            alt="profile"
-          />
+          {authUser?.profilePhoto || message?.profilePhoto ? (
+            <img
+              src={
+                message?.senderId === authUser?.id
+                  ? authUser?.profilePhoto
+                  : message?.profilePhoto
+              }
+              alt="profile"
+            />
+          ) : (
+            <RxAvatar className="h-10 w-10" />
+          )}
         </div>
       )}
 

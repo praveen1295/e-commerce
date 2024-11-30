@@ -7,6 +7,7 @@ import {
 } from "react-icons/hi";
 import ContactOptions from "./ContactMe";
 import "./ContactUs.scss"; // Import CSS file for styling
+import HomePage from "../chat/HomePage";
 
 const ContactUs = () => {
   return (
@@ -43,6 +44,7 @@ const ContactUs = () => {
           </div>
         </div>
       </div>
+      {<HomePage />}
     </div>
   );
 };
