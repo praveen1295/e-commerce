@@ -7,15 +7,11 @@ const app = express();
 const server = http.createServer(app);
 
 const allowedOrigins = [
-  "https://ecommerce-frontend.onrender.com",
-  "https://biotronixfrontend.netlify.app",
+  process.env.FRONTEND_URL,
+  "https://e-commerce-frontend-39iv.onrender.com",
   "http://localhost:3001",
   "http://localhost:3000",
   "http://localhost:8080",
-  "http://localhost:8080",
-  "http://www.ecommerce.com",
-  "http://3.111.3.98:8080",
-  "http://3.111.3.98:8080",
 ];
 const io = new Server(server, {
   cors: {

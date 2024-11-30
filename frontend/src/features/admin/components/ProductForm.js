@@ -34,8 +34,6 @@ function ProductForm() {
   const categories = useSelector(selectCategories);
   const colors = useSelector(selectColors);
 
-  console.log("xxxxxxxxxxxxx", categories);
-
   const dispatch = useDispatch();
   const params = useParams();
   const navigate = useNavigate();

@@ -67,8 +67,6 @@ import { setOnlineUsers } from "./features/customerCare/customerCareSlice";
 
 const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
-console.log("baseUrl=====>", BASE_URL);
-
 const options = {
   timeout: 5000,
   position: positions.BOTTOM_LEFT,

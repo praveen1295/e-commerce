@@ -55,32 +55,6 @@ if (!existsSync(bannersPath)) {
   mkdirSync(bannersPath);
 }
 
-// if (!existsSync(photoDir)) {
-//   mkdirSync(path.join(rootDir, "PRODUCT_PHOTOS"));
-// }
-// if (!existsSync(fileDir)) {
-//   mkdirSync(path.join(rootDir, "ASSESTSFILES"));
-// }
-// if (!existsSync(thumbnailDir)) {
-//   mkdirSync(path.join(rootDir, "THUMBNAIL"));
-// }
-
-// const storage = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     if (file.fieldname === "productPhotos") {
-//       cb(null, path.join(__dirname, "./../", photoDir));
-//     } else if (file.fieldname === "assetsPhoto") {
-//       cb(null, path.join(__dirname, "./../", fileDir));
-//     } else if (file.fieldname === "thumbnail") {
-//       cb(null, path.join(__dirname, "./../", thumbnailDir));
-//     }
-//   },
-
-//   filename: (req, file, cb) => {
-//     cb(null, file.originalname.split(" ").join("_"));
-//   },
-// });
-
 const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
 
 const storage = multer.diskStorage({
