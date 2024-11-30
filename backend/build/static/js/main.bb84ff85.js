@@ -45539,7 +45539,7 @@
                                     to: "/home",
                                     children: (0, sl.jsx)("img", {
                                       className: "h-10 md:h-14",
-                                      src: "/assets/biotronixLogo.png",
+                                      src: "/assets/logo.webp",
                                       alt: "Your Company",
                                     }),
                                   }),
@@ -62194,7 +62194,7 @@
                             to: "/home",
                             children: (0, sl.jsx)("img", {
                               className: "h-16 -mt-4",
-                              src: "/assets/biotronixLogo.png",
+                              src: "/assets/logo.webp",
                               alt: "Your Company",
                             }),
                           }),
@@ -92076,7 +92076,7 @@
                       children: [
                         (0, sl.jsx)("img", {
                           className: "mx-auto h-10 w-auto",
-                          src: "/assets/biotronixLogo.png",
+                          src: "/assets/logo.webp",
                           alt: "Your Company",
                         }),
                         (0, sl.jsx)("h2", {

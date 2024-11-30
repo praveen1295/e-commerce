@@ -64,7 +64,7 @@ const Invoice = ({}) => {
           </div>
         </div>
         <div className=" flex justify-end w-60 pb-2">
-          <img className="w-40" src="../assets/biotronixLogo.png" alt="Logo" />
+          <img className="w-40" src="../assets/logo.webp" alt="Logo" />
         </div>
       </div>
 

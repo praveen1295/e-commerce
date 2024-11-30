@@ -6,7 +6,7 @@ const fs = require("fs");
 const path = require("path");
 const { FIREFOX_PATH, PDF_CONFIG } = require("../config");
 
-// const logo = require("../assets/biotronixLogo.png");
+// const logo = require("../assets/logo.webp");
 
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com", // Use the correct SMTP server for Gmail
@@ -146,7 +146,7 @@ exports.invoiceTemplate = function (order, title) {
               <tr>
                 <td align="center" valign="top" style="padding: 36px 24px;">
                   <a href="https://sendgrid.com" target="_blank" style="display: inline-block;">
-                    <img src="../assets/biotronixLogo.png" alt="Logo" border="0" width="48" style="display: block; width: 48px; max-width: 48px; min-width: 48px;">
+                    <img src="../assets/logo.webp" alt="Logo" border="0" width="48" style="display: block; width: 48px; max-width: 48px; min-width: 48px;">
                   </a>
                 </td>
               </tr>
@@ -342,7 +342,7 @@ exports.getPackingSlipHTML = function (options) {
 
 exports.mapOrderDaTaToPackingSlipOptions = function (orderData, user) {
   const options = {
-    logo: "../assets/biotronixLogo.png",
+    logo: "../assets/logo.webp",
     companyName: "Ecommerce",
     address1: "F-400, Sudershan Park, Moti Nagar, Near Gopal Ji Dairy,",
     address2: "New Delhi -110015, Delhi 110015",
@@ -604,7 +604,7 @@ const computeTotalGstAmounts = (order, user) => {
 
 exports.mapOrderDataToInvoiceOptions = function (orderData, user) {
   const options = {
-    logo: "../assets/biotronixLogo.png",
+    logo: "../assets/logo.webp",
     companyName: "Ecommerce",
     address1: "F-400, Sudershan Park, Moti Nagar, Near Gopal Ji Dairy,",
     address2: "New Delhi -110015, Delhi 110015",

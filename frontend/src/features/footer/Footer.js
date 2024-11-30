@@ -86,7 +86,7 @@ const Footer = () => {
                 <Link to="/home">
                   <img
                     className="h-16 -mt-4"
-                    src="/assets/biotronixLogo.png"
+                    src="/assets/logo.webp"
                     alt="Your Company"
                   />
                 </Link>

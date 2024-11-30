@@ -137,7 +137,7 @@ function NavBar({ children }) {
                       <Link to="/home">
                         <img
                           className="h-10 md:h-14"
-                          src="/assets/biotronixLogo.png"
+                          src="/assets/logo.webp"
                           alt="Your Company"
                         />
                       </Link>
