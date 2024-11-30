@@ -5,9 +5,12 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { selectLoggedInUser } from "../auth/authSlice";
 import { MdChat } from "react-icons/md";
+import toast from "react-hot-toast";
+import { useAlert } from "react-alert";
 
 const HomePage = () => {
   const user = useSelector(selectLoggedInUser);
+  const alert = useAlert();
 
   const [startChat, setStartChat] = useState(false);
 
@@ -36,6 +39,9 @@ const HomePage = () => {
         <button
           onClick={() => {
             if (!user) {
+              toast.error("Please login to start chat.");
+              alert.info("Please login to start chat.");
+
               navigate("/login");
               return;
             }
