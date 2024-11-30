@@ -4,7 +4,9 @@ import axios from "axios";
 
 const apiClient = axios.create({
   withCredentials: true,
-  baseURL: process.env.REACT_APP_API_BASE_URL,
+  baseURL:
+    "https://e-commerce-napr.onrender.com" ||
+    process.env.REACT_APP_API_BASE_URL,
 });
 
 apiClient.interceptors.request.use(
