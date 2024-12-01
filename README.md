@@ -60,7 +60,7 @@ An e-commerce platform for browsing, purchasing, and managing products.
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-repo/ecommerce.git
+   git clone https://github.com/praveen1295/e-commerce.git
    ```
 
 ### Key Updates:
