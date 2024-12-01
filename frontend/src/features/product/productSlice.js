@@ -210,8 +210,11 @@ export const productSlice = createSlice({
   },
 });
 
-export const { clearSelectedProduct, resetSearchResults } =
-  productSlice.actions;
+export const {
+  clearSelectedProduct,
+  resetSearchResults,
+  updateProductRealTime,
+} = productSlice.actions;
 
 export const selectAllProducts = (state) => state.product.products;
 export const selectBrands = (state) => state.product.brands;
