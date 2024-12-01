@@ -34,6 +34,7 @@ import {
   fetchAllCategoriesAsync,
   selectCategories,
 } from "../../categories/categorySlice";
+import useRealTimeProductUpdates from "../../../hooks/useRealTimeProductUpdates";
 
 const sortOptions = [
   { name: "Best Rating", sort: "rating", order: "desc", current: false },
@@ -150,6 +151,8 @@ export default function ProductList() {
     dispatch(fetchBrandsAsync());
     dispatch(fetchAllCategoriesAsync());
   }, []);
+
+  useRealTimeProductUpdates();
 
   return (
     <div className="bg-white">

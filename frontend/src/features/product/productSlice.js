@@ -125,6 +125,16 @@ export const productSlice = createSlice({
     resetSearchResults: (state) => {
       state.searchResults = [];
     },
+
+    updateProductRealTime: (state, action) => {
+      const updatedProduct = action.payload;
+      const index = state.products.findIndex(
+        (product) => product.id === updatedProduct.id
+      );
+      if (index !== -1) {
+        state.products[index] = updatedProduct; // Update existing product
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
