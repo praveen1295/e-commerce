@@ -140,6 +140,18 @@ export async function fetchRelatedProducts(skus, id) {
   }
 }
 
+export async function fetchRecommendedProducts(userId) {
+  try {
+    const response = await apiClient.get(`/products/recommendedProducts`, {
+      params: { userId },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+    throw error;
+  }
+}
+
 export async function fetchBestSellers() {
   try {
     const response = await apiClient.get("/products/best-sellers");
@@ -151,10 +163,10 @@ export async function fetchBestSellers() {
 }
 
 // Add the searchProducts function
-export async function searchProducts(query) {
+export async function searchProducts(query, userId) {
   try {
     const response = await apiClient.get(`/products/search`, {
-      params: { query },
+      params: { query, userId },
     });
     return response.data;
   } catch (error) {

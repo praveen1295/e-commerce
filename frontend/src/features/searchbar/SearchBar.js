@@ -7,8 +7,11 @@ import {
   resetSearchResults,
 } from "../product/productSlice";
 import { useNavigate } from "react-router-dom";
+import { selectLoggedInUser } from "../auth/authSlice";
 
 const SearchBar = ({ styles, isSearch, searchFunction }) => {
+  const user = useSelector(selectLoggedInUser);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const searchResults = useSelector(selectSearchResults);
@@ -38,7 +41,7 @@ const SearchBar = ({ styles, isSearch, searchFunction }) => {
 
   const handleSearch = useCallback(
     debounce((query) => {
-      dispatch(searchProductAsync(query));
+      dispatch(searchProductAsync({ query, userId: user?.id }));
     }, 300),
     []
   );

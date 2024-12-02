@@ -7,7 +7,8 @@ const {
   fetchCategoryCounts,
   fetchRelatedProducts,
   fetchBestSellers,
-  searchProducts, // Import the searchProducts function
+  searchProducts,
+  fetchRecommendedProducts, // Import the searchProducts function
 } = require("../controller/Product");
 const { isAdmin } = require("../services/common");
 
@@ -18,6 +19,7 @@ router
   .post("/", createProduct)
   .get("/", fetchAllProducts)
   .get("/related/:id", fetchRelatedProducts)
+  .get("/recommendedProducts", fetchRecommendedProducts)
   .get("/getCategoryCounts", fetchCategoryCounts)
   .get("/best-sellers", fetchBestSellers) // Add the route for best-selling products
   .get("/search", searchProducts) // Add the route for searching products

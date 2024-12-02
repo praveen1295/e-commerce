@@ -9,7 +9,8 @@ import {
   getCategoryCounts,
   fetchRelatedProducts,
   fetchBestSellers,
-  searchProducts, // Import the new search function
+  searchProducts,
+  fetchRecommendedProducts, // Import the new search function
 } from "./productAPI";
 
 const initialState = {
@@ -17,6 +18,7 @@ const initialState = {
   brands: [],
   categories: [],
   relatedProducts: [],
+  recommendedProducts: [],
   bestSellers: [],
   status: "idle",
   totalItems: 0,
@@ -98,6 +100,14 @@ export const fetchRelatedProductsAsync = createAsyncThunk(
   }
 );
 
+export const fetchRecommendationsAsync = createAsyncThunk(
+  "products/recommendedProducts",
+  async ({ userId }) => {
+    const response = await fetchRecommendedProducts(userId);
+    return response;
+  }
+);
+
 export const fetchBestSellersAsync = createAsyncThunk(
   "product/fetchBestSellers",
   async () => {
@@ -109,8 +119,8 @@ export const fetchBestSellersAsync = createAsyncThunk(
 // Define the new searchProductAsync function
 export const searchProductAsync = createAsyncThunk(
   "product/searchProduct",
-  async (query) => {
-    const response = await searchProducts(query);
+  async ({ query, userId }) => {
+    const response = await searchProducts(query, userId);
     return response;
   }
 );
@@ -193,6 +203,13 @@ export const productSlice = createSlice({
         state.status = "idle";
         state.relatedProducts = action.payload;
       })
+      .addCase(fetchRecommendationsAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchRecommendationsAsync.fulfilled, (state, action) => {
+        state.status = "idle";
+        state.recommendedProducts = action.payload;
+      })
       .addCase(fetchBestSellersAsync.pending, (state) => {
         state.status = "loading";
       })
@@ -223,6 +240,8 @@ export const selectProductListStatus = (state) => state.product.status;
 export const selectTotalItems = (state) => state.product.totalItems;
 export const selectCategoryCounts = (state) => state.product.categoryCounts;
 export const selectRelatedProducts = (state) => state.product.relatedProducts;
+export const selectRecommendations = (state) =>
+  state.product.recommendedProducts;
 export const selectBestSellers = (state) => state.product.bestSellers;
 export const selectSearchResults = (state) => state.product.searchResults; // Selector for search results
 

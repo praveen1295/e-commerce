@@ -16,6 +16,8 @@ import {
   selectCategories,
   selectProductListStatus,
   selectTotalItems,
+  fetchRecommendationsAsync,
+  selectRecommendations,
 } from "../product/productSlice";
 import {
   fetchAllBlogsAsync,
@@ -39,7 +41,8 @@ import { selectLoggedInUser } from "../auth/authSlice";
 
 const LandingHomePage = () => {
   const user = useSelector(selectLoggedInUser);
-
+  const recommendations = useSelector(selectRecommendations);
+  console.log("recommendations====>", recommendations);
   const mostViewedBlogs = useSelector(selectMostViewedBlogs);
 
   const dispatch = useDispatch();
@@ -67,6 +70,10 @@ const LandingHomePage = () => {
 
     dispatch(fetchAllBlogsAsync({ sort: {}, filters: {}, pagination }));
     dispatch(fetchMostViewedBlogsAsync({ sort: {}, filters: {}, pagination }));
+
+    if (user) {
+      dispatch(fetchRecommendationsAsync({ userId: user?.id }));
+    }
   }, [dispatch]);
 
   if (bannerLoading === "loading") {
@@ -140,6 +147,20 @@ const LandingHomePage = () => {
           </div>
         </div>
       </div>
+
+      {/* Recommendations Section */}
+      {recommendations.length > 0 && (
+        <div className="recommendations-section w-full px-4 md:px-16 py-10">
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-800 text-center">
+            Recommended Products
+          </h1>
+          <div className="flex flex-wrap items-center justify-center gap-4 py-6">
+            {recommendations?.map((product, idx) => (
+              <BestSellingCard key={idx} product={product} />
+            ))}
+          </div>
+        </div>
+      )}
 
       <div className="container mx-auto flex flex-col items-center justify-center mt-7 space-y-10 px-4">
         <div className="section text-center py-4">

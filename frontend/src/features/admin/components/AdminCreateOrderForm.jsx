@@ -19,6 +19,7 @@ import { useDispatch, useSelector } from "react-redux";
 import CommonButton from "../../common/CommonButton";
 import { createOrderAsync } from "../../order/orderSlice";
 import { useAlert } from "react-alert";
+import { selectLoggedInUser } from "../../auth/authSlice";
 
 const Label = ({ htmlFor, children, required }) => (
   <label
@@ -39,7 +40,7 @@ export default function CreateNewOrder() {
   } = useForm();
 
   const alert = useAlert();
-
+  const user = useSelector(selectLoggedInUser);
   const dispatch = useDispatch();
   const selectedProduct = useSelector(selectSearchResults);
   const [userSearchQuery, setUserSearchQuery] = useState("");
@@ -82,7 +83,7 @@ export default function CreateNewOrder() {
   };
 
   const handleChangeProduct = (index, e) => {
-    dispatch(searchProductAsync(e.target.value));
+    dispatch(searchProductAsync({ query: e.target.value, userId: user?.id }));
   };
 
   const handleQuantityChange = (index, e) => {

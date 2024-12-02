@@ -50,6 +50,8 @@ const userSchema = new Schema(
       enum: ["male", "female", "other"],
       required: true,
     },
+    recentSearches: [String],
+    viewedCategories: [String],
   },
   { timestamps: true }
 );

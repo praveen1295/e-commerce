@@ -7,6 +7,7 @@ const {
   thumbnailPath,
 } = require("../middlewares/fileUpload");
 const { getReceiverSocketId } = require("../socket/socket");
+const { User } = require("../model/User");
 
 exports.createProduct = async (req, res) => {
   try {
@@ -399,10 +400,27 @@ exports.fetchBestSellers = async (req, res) => {
 
 exports.searchProducts = async (req, res) => {
   try {
-    const { query } = req.query;
+    const { query, userId } = req.query;
+
+    console.log("userId====>", userId);
 
     if (!query) {
       return res.status(400).json({ message: "No search query provided" });
+    }
+    if (userId) {
+      const user = await User.findById(userId);
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+
+      // Add the current search query to the recentSearches array, avoiding duplicates
+      if (!user.recentSearches.includes(query)) {
+        user.recentSearches.unshift(query);
+        if (user.recentSearches.length > 10) {
+          user.recentSearches.pop();
+        }
+        await user.save();
+      }
     }
 
     const searchQuery = {
@@ -637,5 +655,78 @@ exports.updateProduct = async (req, res) => {
 
     // Respond with a 400 status code and the error
     res.status(400).json({ error: err.message });
+  }
+};
+
+exports.fetchRecommendedProducts = async (req, res) => {
+  console.log("caaalllllllllllllll");
+  const { userId } = req.query;
+
+  console.log("userId=======>", userId);
+
+  try {
+    let relatedProducts = [];
+    let query = {};
+
+    // Fetch the current user's details
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const recentSearches = user?.recentSearches || [];
+    const viewedCategories = user?.viewedCategories || [];
+
+    // Find related products based on recent searches and viewed categories
+    relatedProducts = await Product.find({
+      $or: [
+        { category: { $in: viewedCategories } }, // Match categories
+        { tags: { $in: recentSearches } }, // Match tags
+        { sku: { $in: recentSearches } }, // Match SKU
+        { title: { $regex: recentSearches.join("|"), $options: "i" } }, // Partial match in title
+        { description: { $regex: recentSearches.join("|"), $options: "i" } }, // Partial match in description
+      ],
+    }).limit(10);
+
+    // Map products to include GST-inclusive prices and other necessary fields
+    const relatedProductsWithGst = relatedProducts.map((product) => {
+      const productObj = product.toObject();
+
+      // If discountPrice exists, calculate GST-inclusive prices and GST amounts
+      if (product.discountPrice) {
+        productObj.gstIncludedPrice = {
+          regular: product.calculateGstIncludedPrice(
+            product.discountPrice.regular
+          ),
+          gold: product.calculateGstIncludedPrice(product.discountPrice.gold),
+          silver: product.calculateGstIncludedPrice(
+            product.discountPrice.silver
+          ),
+          platinum: product.calculateGstIncludedPrice(
+            product.discountPrice.platinum
+          ),
+        };
+        productObj.gstAmount = {
+          regular: product.calculateGstAmount(product.discountPrice.regular),
+          gold: product.calculateGstAmount(product.discountPrice.gold),
+          silver: product.calculateGstAmount(product.discountPrice.silver),
+          platinum: product.calculateGstAmount(product.discountPrice.platinum),
+        };
+      }
+
+      // Add a separate `id` field and remove the `_id` field
+      productObj.id = productObj._id.toHexString();
+      delete productObj._id;
+
+      return productObj;
+    });
+
+    res.status(200).json(relatedProductsWithGst);
+  } catch (err) {
+    console.error("Error fetching recommended products:", err);
+    res.status(400).json({
+      message: "Error fetching recommended products",
+      error: err.message,
+    });
   }
 };

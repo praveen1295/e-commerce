@@ -81,6 +81,7 @@ const productSchema = new Schema({
     min: [0, "GST percentage should be at least 0%"],
     max: [100, "GST percentage should be at most 100%"],
   },
+  tags: [String],
 });
 
 // Virtual for 'id'
